@@ -1,7 +1,7 @@
 import {apiClient} from '../api';
 
-export const getUsers = async () => {
-  const url = 'users';
+export const getUsers = async (page, limit) => {
+  const url = `users?_page=${page}&_limit=${limit}`;
 
   try {
     const response = await apiClient.get(url);

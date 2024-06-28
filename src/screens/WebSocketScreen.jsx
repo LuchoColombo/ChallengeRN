@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {WebSocketContext} from '../context/WebSocketContext';
 import Button from '../components/Button';

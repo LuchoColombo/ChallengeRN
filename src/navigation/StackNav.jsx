@@ -2,8 +2,6 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ProfileScreen} from '../screens/ProfileScreen';
-import {WebSocketScreen} from '../screens/WebSocketScreen';
-import ListScreen from '../screens/ListScreen';
 import {BottomTab} from './BottomTab';
 
 const Stack = createNativeStackNavigator();

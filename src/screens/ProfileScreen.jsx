@@ -1,12 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {getUser} from '../services/user';
 import Button from '../components/Button';
 
@@ -31,7 +25,7 @@ export const ProfileScreen = ({route}) => {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#007bff" />
       </View>
     );
   }
@@ -49,7 +43,9 @@ export const ProfileScreen = ({route}) => {
         <Text style={styles.bold}>Email:</Text> {usuario.email}
       </Text>
       <Text style={styles.address}>
-        <Text style={styles.bold}>Address:</Text> {usuario.address?.street}
+        <Text style={styles.bold}>Address:</Text> {usuario.address?.street},{' '}
+        {''}
+        {usuario.address.city}
       </Text>
       <Text style={styles.phone}>
         <Text style={styles.bold}>Contact number:</Text> {usuario.phone}
