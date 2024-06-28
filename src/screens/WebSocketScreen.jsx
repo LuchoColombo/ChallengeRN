@@ -10,8 +10,18 @@ export const WebSocketScreen = () => {
     setMessages,
     setShowAlertOnOpen,
     setUltimoMensaje,
+    sendMessage,
   } = useContext(WebSocketContext);
   const [inputMessage, setInputMessage] = useState('');
+
+  const handleSendMessage = () => {
+    if (inputMessage.trim() !== '') {
+      sendMessage(inputMessage);
+      setUltimoMensaje(inputMessage);
+      setShowAlertOnOpen(true);
+      setInputMessage('');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -23,18 +33,7 @@ export const WebSocketScreen = () => {
           value={inputMessage}
           placeholder="Type a message to send..."
         />
-        <Button
-          onPress={() => {
-            if (inputMessage.trim() !== '') {
-              setMessages(prevMessages => [...prevMessages, inputMessage]);
-              setUltimoMensaje(inputMessage);
-              setShowAlertOnOpen(true);
-              setInputMessage('');
-            }
-          }}
-          title="Send"
-          disabled={disabled}
-        />
+        <Button onPress={handleSendMessage} title="Send" disabled={disabled} />
       </View>
       <View>
         <Text style={styles.textStyle}>WebSocket Message</Text>

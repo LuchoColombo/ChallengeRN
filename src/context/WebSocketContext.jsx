@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useState} from 'react';
+import React, {createContext, useEffect, useRef, useState} from 'react';
 import {Alert} from 'react-native';
 
 const WebSocketContext = createContext();
@@ -10,9 +10,11 @@ const WebSocketProvider = ({children}) => {
   const [ultimoMensaje, setUltimoMensaje] = useState(
     'La conexión WebSocket se ha establecido correctamente.',
   );
+  const wsRef = useRef(null);
 
   useEffect(() => {
     const ws = new WebSocket('wss://echo.websocket.org/');
+    wsRef.current = ws;
 
     ws.onopen = () => {
       console.log('Conexión establecida.');
@@ -45,6 +47,15 @@ const WebSocketProvider = ({children}) => {
       Alert.alert('Nuevo mensaje', ultimoMensaje);
     }
   }, [showAlertOnOpen, ultimoMensaje]);
+
+  const sendMessage = message => {
+    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      wsRef.current.send(message);
+    } else {
+      console.log('WebSocket no está abierto para enviar mensajes.');
+    }
+  };
+
   return (
     <WebSocketContext.Provider
       value={{
@@ -54,6 +65,7 @@ const WebSocketProvider = ({children}) => {
         setShowAlertOnOpen,
         setMessages,
         setUltimoMensaje,
+        sendMessage,
       }}>
       {children}
     </WebSocketContext.Provider>
