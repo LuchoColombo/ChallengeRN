@@ -15,7 +15,7 @@ function ListScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
     paddingTop: StatusBar.currentHeight,
   },
 });

@@ -1,48 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {Alert, Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {WebSocketContext} from '../context/WebSocketContext';
+import Button from '../components/Button';
 
-export const WebSocketTest = () => {
-  const [messages, setMessages] = useState([]);
-  const [ultimoMensaje, setUltimoMensaje] = useState(
-    'La conexión WebSocket se ha establecido correctamente.',
-  );
-  const [showAlertOnOpen, setShowAlertOnOpen] = useState(false);
+export const WebSocketScreen = () => {
+  const {
+    messages,
+    disabled,
+    setMessages,
+    setShowAlertOnOpen,
+    setUltimoMensaje,
+  } = useContext(WebSocketContext);
   const [inputMessage, setInputMessage] = useState('');
-  const [disabled, setDisabled] = useState(false);
-
-  useEffect(() => {
-    const ws = new WebSocket('wss://echo.websocket.org/');
-
-    ws.onopen = () => {
-      console.log('Conexión establecida.');
-      setShowAlertOnOpen(true);
-    };
-
-    ws.onmessage = e => {
-      const newMessage = e.data;
-      setMessages(prevMessages => [...prevMessages, newMessage]);
-    };
-
-    ws.onerror = error => {
-      console.log('Error de WebSocket:', error.message);
-      Alert.alert('Error de WebSocket', error.message);
-      setDisabled(true);
-    };
-
-    ws.onclose = () => {
-      console.log('Conexión WebSocket cerrada.');
-    };
-
-    return () => {
-      ws.close();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (showAlertOnOpen) {
-      Alert.alert('Nuevo mensaje', ultimoMensaje);
-    }
-  }, [showAlertOnOpen, ultimoMensaje]);
 
   return (
     <View style={styles.container}>
@@ -52,7 +21,7 @@ export const WebSocketTest = () => {
           style={styles.inputStyle}
           onChangeText={text => setInputMessage(text)}
           value={inputMessage}
-          placeholder="Escribe tu mensaje..."
+          placeholder="Type a message to send..."
         />
         <Button
           onPress={() => {
@@ -63,7 +32,7 @@ export const WebSocketTest = () => {
               setInputMessage('');
             }
           }}
-          title="Enviar"
+          title="Send"
           disabled={disabled}
         />
       </View>
@@ -99,10 +68,11 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     height: 40,
-    borderColor: 'gray',
+    backgroundColor: '#fff',
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
+    borderRadius: 5,
   },
   viewContainer: {
     marginBottom: 20,

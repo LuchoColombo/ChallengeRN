@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {getUsers} from '../services/user';
+import Button from './Button';
 
 const UsersList = () => {
   const navigation = useNavigation();
@@ -20,18 +21,19 @@ const UsersList = () => {
   return (
     <View style={styles.container}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={usuarios}
         renderItem={({item: user}) => (
-          <View style={styles.userContainer}>
+          <TouchableOpacity
+            style={styles.userContainer}
+            onPress={() => navigation.navigate('Profile', {id: user.id})}>
             <Text style={styles.name}>{user.name}</Text>
             <Text style={styles.email}>{user.email}</Text>
             <Text style={styles.street}>{user.address.street}</Text>
-            <Button
-              title="View profile"
-              onPress={() => navigation.navigate('Profile', {id: user.id})}
-              style={styles.button}
-            />
-          </View>
+            <View style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>View Profile</Text>
+            </View>
+          </TouchableOpacity>
         )}
         keyExtractor={item => item.id.toString()}
       />
@@ -42,31 +44,47 @@ const UsersList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
     paddingHorizontal: 16,
   },
   userContainer: {
     marginBottom: 12,
-    padding: 12,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 8,
+    padding: 16,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
   name: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 4,
+    textAlign: 'center',
   },
   email: {
     fontSize: 16,
+    color: '#666',
     marginBottom: 4,
   },
   street: {
     fontSize: 14,
-    color: '#666',
+    color: '#888',
   },
-  button: {
+  buttonContainer: {
+    backgroundColor: 'transparent',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 5,
     marginTop: 8,
+    alignSelf: 'center',
+
+  },
+  buttonText: {
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });
-
 export default UsersList;

@@ -2,16 +2,17 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ProfileScreen} from '../screens/ProfileScreen';
-import {WebSocketTest} from './WebSocketTest';
+import {WebSocketScreen} from '../screens/WebSocketScreen';
 import ListScreen from '../screens/ListScreen';
+import {BottomTab} from './BottomTab';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-export default function NavigatorTab() {
+export default function StackNav() {
   return (
     <Stack.Navigator
-      initialRouteName="Websocket"
+      initialRouteName="Users"
       screenOptions={{
         headerStyle: {
           backgroundColor: '#f4511e',
@@ -23,20 +24,15 @@ export default function NavigatorTab() {
       }}>
       <Stack.Screen
         name="Users"
-        component={ListScreen}
+        component={BottomTab}
         options={{
-          title: 'Lista de Usuarios',
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
         options={{title: 'Perfil'}}
-      />
-      <Stack.Screen
-        name="Websocket"
-        component={WebSocketTest}
-        options={{title: 'WebSocket'}}
       />
     </Stack.Navigator>
   );
