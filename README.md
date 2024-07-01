@@ -30,8 +30,9 @@ Segmentación de audiencias
 Integración con otras herramientas de Firebase
 Optimización del rendimiento
 
-Preguntas de Firebase Crashlytics 4. Explica qué es Firebase Crashlytics y cómo ayuda en el desarrollo de aplicaciones
-móviles.
+Preguntas de Firebase Crashlytics 
+
+4. Explica qué es Firebase Crashlytics y cómo ayuda en el desarrollo de aplicaciones móviles.
 
 Firebase Crashlytics es un servicio de informes de errores proporcionado por Google como parte de la plataforma Firebase. Su función principal es monitorear los fallos y errores que ocurren en aplicaciones móviles y proporcionar informes detallados en tiempo real sobre cada incidente.
 
